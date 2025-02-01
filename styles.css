@@ -1,4 +1,46 @@
+*, ::before, ::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Helvetica, sans-serif;
+}
+
+header h1{
+    text-align: center;
+    color: red;
+    padding: 20px 30px;
+}
+
 #main-div{
     text-align: center;
     font-size: 30px;
+}
+
+#calcu{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    margin: 0 auto;
+    padding: 30px 40px;
+    border: 2px solid #1f1f1f;
+    border-radius: 5px;
+    box-shadow: 5px 5px 4px 2px #a0a0a0;
+}
+
+#calcu-display{
+    margin: 0 auto;
+    width: 250px;
+    height: 50px;
+    background: #555555;
+}
+
+.button{
+    margin: 0;
+    width: 40px;
+    height: 30px;
+    color: blue;
 }
