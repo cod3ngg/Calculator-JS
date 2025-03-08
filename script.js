@@ -1,4 +1,3 @@
-
 const mainDiv = document.getElementById('main-div');
 const outputField = document.getElementById('output-field');
 
@@ -6,19 +5,28 @@ const numbtns = document.querySelectorAll(".numbtn");
 const oprbtns = document.querySelectorAll(".oprbtn");
 
 let val;
-let firstVal;
-let secondVal;
+let firstVal = "";
+let secondVal = "";
 let nextVal = false;
 let oprVal;
 let inputVal;
 let outputVal;
 let hasOperand = false;
+let result;
 
 
  numbtns.forEach((button) => {
     button.addEventListener("click", () => {
         val = button.value;
         console.log(val);
+
+
+        if(nextVal === false){
+            firstVal += val;
+        }else{
+            secondVal += val;
+        }
+
         userInputVal();
         displayOutput();
     });
@@ -29,7 +37,6 @@ let hasOperand = false;
         let opr = button.value;
         inputVal = "";
         val = opr;
-        hasOperand = true;
        
 
         console.log(opr + " operand");
@@ -38,32 +45,34 @@ let hasOperand = false;
             case "equals":
                 val = "";
                 Operate();
+                nextVal = false;
+                break;
+            case "clear":
+                clearInput();
+                break;
+            case "delete":
+                backspace();
                 break;
             default:
-                outputField.textContent = outputVal + opr;
-                outputVal += opr;
-                console.log("Operation Triggered");
+                if(!hasOperand){
+                    hasOperand = true;
+                    outputField.textContent = outputVal + opr;
+                    outputVal += opr;
+                    oprVal = opr;
+                    nextVal = true;
+                    console.log("Operation Triggered");
+                }
+                else{
+                    console.log("Operator already exists");
+                }
         }
 
-
-        oprVal = opr;
-        nextVal = true;
     });
  });
 
 
 function userInputVal(){
-    if(inputVal === undefined){
-        inputVal = val;
-    }else {
-        inputVal += val;
-    }
 
-    if(nextVal === true){
-        secondVal = inputVal;
-    }else{
-        firstVal = inputVal;
-    }
 }
 
 function displayOutput(){
@@ -77,7 +86,6 @@ function displayOutput(){
 }
 
 function Operate(){
-    let result;
 
     firstVal = Number(firstVal);
     console.log(firstVal);
@@ -102,6 +110,47 @@ function Operate(){
             result = null; // Assign a default value if no valid operation is found
     }
 
-    outputField.textContent = result;
+    clearInput();
+    result = result.toString();
+    firstVal = result.toString();
+    outputVal = result.toString();
+    displayOutput();
+    hasOperand = false;
     console.log(result);
 }
+
+function backspace(){
+    if(nextVal){
+        secondVal = secondVal.slice(0, -1) || "0";
+        console.log("secondval:" + secondVal);
+        if(secondVal === "0"){
+            nextVal = false;
+        }
+    }
+    else if(hasOperand){
+        oprVal = "";
+        hasOperand = false;
+    }
+    else{
+        firstVal = firstVal.slice(0, -1) || "0";
+        console.log("firstval:" + firstVal);
+    }
+
+    outputVal = outputVal.slice(0, -1);
+    outputField.textContent = outputVal;
+    console.log("backspace");
+}
+
+function clearInput(){
+    firstVal = firstVal.toString();
+    secondVal = secondVal.toString();
+
+    firstVal = "";
+    secondVal = "";
+    oprVal = "";
+    outputVal = "";
+    hasOperand = false;
+
+    outputField.textContent = "";
+}
+
