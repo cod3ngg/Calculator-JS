@@ -41,7 +41,10 @@ let result;
 
         console.log(opr + " operand");
         
-        switch(opr){
+        switch (opr) {
+            case "delete":
+                backspace();
+                break;
             case "equals":
                 val = "";
                 Operate();
@@ -49,9 +52,6 @@ let result;
                 break;
             case "clear":
                 clearInput();
-                break;
-            case "delete":
-                backspace();
                 break;
             default:
                 if(!hasOperand){
@@ -111,7 +111,7 @@ function Operate(){
     }
 
     clearInput();
-    result = result.toString();
+    result = result.toFixed(2).toString();
     firstVal = result.toString();
     outputVal = result.toString();
     displayOutput();
@@ -127,9 +127,10 @@ function backspace(){
             nextVal = false;
         }
     }
-    else if(hasOperand){
-        oprVal = "";
+    if(hasOperand){
         hasOperand = false;
+        oprVal = "";
+        console.log("oprval:" + oprVal);
     }
     else{
         firstVal = firstVal.slice(0, -1) || "0";
