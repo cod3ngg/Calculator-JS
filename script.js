@@ -1,8 +1,10 @@
 const mainDiv = document.getElementById('main-div');
 const outputField = document.getElementById('output-field');
 
+const btns = document.querySelectorAll(".button")
 const numbtns = document.querySelectorAll(".numbtn");
 const oprbtns = document.querySelectorAll(".oprbtn");
+const periodbtn = document.getElementById("period");
 
 let val;
 let firstVal = "";
@@ -13,6 +15,7 @@ let inputVal;
 let outputVal;
 let hasOperand = false;
 let result;
+let hasPeriod = false;
 
 
  numbtns.forEach((button) => {
@@ -20,14 +23,18 @@ let result;
         val = button.value;
         console.log(val);
 
-
         if(nextVal === false){
             firstVal += val;
+            if (val === '.') {
+                periodbtn.disabled = true;
+            }
         }else{
             secondVal += val;
+            if (val === '.') {
+                periodbtn.disabled = true;
+            }
         }
 
-        userInputVal();
         displayOutput();
     });
  });
@@ -37,7 +44,7 @@ let result;
         let opr = button.value;
         inputVal = "";
         val = opr;
-       
+        periodbtn.disabled = false;
 
         console.log(opr + " operand");
         
@@ -60,20 +67,17 @@ let result;
                     outputVal += opr;
                     oprVal = opr;
                     nextVal = true;
+                  
                     console.log("Operation Triggered");
                 }
                 else{
                     console.log("Operator already exists");
                 }
+
         }
 
     });
  });
-
-
-function userInputVal(){
-
-}
 
 function displayOutput(){
     if(outputVal === undefined){
@@ -111,7 +115,12 @@ function Operate(){
     }
 
     clearInput();
-    result = result.toFixed(2).toString();
+
+    let isInteger = Number.isInteger(result);
+    if (!isInteger) {
+        result = result.toFixed(2).toString();
+    }
+
     firstVal = result.toString();
     outputVal = result.toString();
     displayOutput();
@@ -145,13 +154,11 @@ function backspace(){
 function clearInput(){
     firstVal = firstVal.toString();
     secondVal = secondVal.toString();
-
     firstVal = "";
     secondVal = "";
     oprVal = "";
     outputVal = "";
     hasOperand = false;
-
-    outputField.textContent = "";
+    outputField.textContent = "0";
 }
 

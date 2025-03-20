@@ -5,47 +5,92 @@
 }
 
 body{
-    font-family: Helvetica, sans-serif;
+    background-color: #343638;  
+    background: linear-gradient(to bottom, #312f2f, #646060);
+    height: 100vh;
+    font-family: "Roboto Mono", monospace;
+    color: #f4f4f4;
 }
 
-header h1{
-    text-align: center;
-    color: red;
-    padding: 20px 30px;
+a {
+    color: #f4f4f4;
 }
 
-footer{
-    text-align: center;
-    margin: 30px 0;
+#main-text{
+    width: 35%;
+    height: auto;
+    position: absolute;
+    left: 12%;
+    top: 15%;
+    font-size: 20px;
+}
+
+#main-text p{
+    text-align: justify;
+    font-weight: 300;
+    margin-top: 2rem;
+    line-height: 32px;
+}
+
+#icons{
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 28px;
+}
+
+#icons i{
+    margin-right: 15px;
+    margin-top: 4rem;
+}
+
+#main-text footer{
+    margin-top: 1rem;
 }
 
 #main-div{
-    text-align: center;
     font-size: 30px;
+
 }
 
+header{
+    margin: 0;
+    color: #F4F4F4;
+}
+
+footer{
+    margin: 0;
+}
+
+
 #calcu{
+    position: absolute;
     width: 400px;
     height: 550px;
+    left: 55%;
+    top: 15%;
     display: flex;
     flex-direction: column;
     justify-items: center;
+    font-family: Helvetica, sans-serif;
     margin: 0 auto;
     padding: 40px 30px;
-    border: 2px solid #1f1f1f;
-    border-radius: 5px;
-    box-shadow: 5px 5px 4px 2px #a0a0a0;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px 3px #202020;
+    background-color: #646060;
 }
 
 #calcu-display{
     margin: 0 auto;
-    width: 90%;
-    background: #a7a7a7;
+    width: 100%;
+    border: solid 3px #948f8f;
+    height: 80px;
+    color: #f4f4f4;
 }
 
 #output-field{
     text-align: right;
-    height: 50px;
+    height: auto;
+    margin: 10px;
 }
 
 #calcu-buttons{
@@ -65,5 +110,24 @@ footer{
     padding: 0px;
     width: auto;
     height: 60px;
-    color: blue;
+    color: #f4f4f4;
+    background-color: #7e7777;
+    border: none;
+    border-radius: 10%;
+    font-size: 1.2rem;
+      border: solid 2px transparent;
+}
+
+
+#calcu-buttons .button:hover{
+    color: #e08734;
+}
+
+#calcu-buttons .button:active{
+    outline: solid 2px #e08734;
+
+}
+
+i:hover{
+    color: #e08734;
 }
