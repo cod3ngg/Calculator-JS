@@ -18,7 +18,7 @@ let result;
 let hasPeriod = false;
 
 
- numbtns.forEach((button) => {
+numbtns.forEach((button) => {
     button.addEventListener("click", () => {
         val = button.value;
         console.log(val);
@@ -43,6 +43,7 @@ let hasPeriod = false;
     button.addEventListener("click", () => {
         let opr = button.value;
         inputVal = "";
+        
         val = opr;
         periodbtn.disabled = false;
 
@@ -67,17 +68,62 @@ let hasPeriod = false;
                     outputVal += opr;
                     oprVal = opr;
                     nextVal = true;
-                  
                     console.log("Operation Triggered");
                 }
                 else{
                     console.log("Operator already exists");
+                    if (hasOperand && nextVal) {
+                        Operate();
+                        outputField.textContent = outputVal + oprVal;
+                        hasOperand = true;
+                        oprVal = opr;
+                        nextVal = true;
+                    }
                 }
 
         }
 
     });
  });
+
+document.addEventListener("keydown", function (event) {
+    const key = event.key;
+    console.log(key);
+
+    if (!isNaN(key) || key === ".") {
+        pressButton(key);
+    }
+
+    const operators = { "+": "+", "-": "-", "*": "x", "/": "÷" };
+    if (operators[key]) {
+        pressButton(operators[key]);
+    }
+    
+    if (key === "x") {
+        pressButton("x");
+    }
+    
+    if (event.shiftKey && event.key === "=") {
+        pressButton("+");
+    }
+
+    if (key === "Enter" || key === "=") {
+        pressButton("=");
+    } else if (key === "Backspace") {
+        pressButton("C");
+    }
+
+    if (event.shiftKey && key === "Backspace") {
+        pressButton("CC");
+    }
+});
+
+function pressButton(value) {
+    const button = document.querySelector(`button[data-key="${value}"]`);
+    if (button) {
+        button.click();
+    }
+}
 
 function displayOutput(){
     if(outputVal === undefined){
@@ -107,6 +153,10 @@ function Operate(){
             result = firstVal * secondVal;
             break;
         case "/":
+            if (secondVal === 0) {
+                result = "HOLD UP! 0?";
+                break;
+            }
             result = firstVal / secondVal;
             break;
         default:
@@ -117,14 +167,22 @@ function Operate(){
     clearInput();
 
     let isInteger = Number.isInteger(result);
-    if (!isInteger) {
+   
+    if (!isInteger && typeof result != 'string') {
         result = result.toFixed(2).toString();
     }
-
-    firstVal = result.toString();
-    outputVal = result.toString();
-    displayOutput();
+    
     hasOperand = false;
+    nextVal = false;
+    if (isInteger && typeof result != 'string') {
+        firstVal = result.toString();
+        outputVal = result.toString();
+    } else {
+        outputVal += result;
+        result = 0;
+    }
+    oprVal = "";
+    displayOutput();
     console.log(result);
 }
 
